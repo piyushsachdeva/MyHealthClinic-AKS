@@ -1,0 +1,93 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: replacetokens@4
+  displayName: 'Replace tokens in appsettings.json'
+  inputs:
+    rootDirectory: '$(build.sourcesdirectory)/src/MyHealth.Web'
+    targetFiles: 'appsettings.json'
+    encoding: 'auto'
+    tokenPattern: 'rm'
+    writeBOM: true
+    escapeType: 'none'
+    actionOnMissing: 'warn'
+    keepToken: false
+    actionOnNoFiles: 'continue'
+    enableTransforms: false
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
+
+- task: replacetokens@3
+  displayName: 'Replace tokens in mhc-aks.yaml'
+  inputs:
+    targetFiles: 'mhc-aks.yaml'
+    escapeType: none
+    tokenPrefix: '__'
+    tokenSuffix: '__'
+
+- task: DockerCompose@0
+  displayName: 'Run services'
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Tech Tutorials With Piyush(9e9c27ce-e0c8-4171-a368-ad16977ec849)'
+    azureContainerRegistry: '{"loginServer":"day11demoacr.azurecr.io", "id" : "/subscriptions/9e9c27ce-e0c8-4171-a368-ad16977ec849/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/day11demoacr"}'
+    dockerComposeFile: 'docker-compose.ci.build.yml'
+    action: 'Run services'
+    detached: false
+
+- task: DockerCompose@0
+  displayName: 'Build services'
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Tech Tutorials With Piyush(9e9c27ce-e0c8-4171-a368-ad16977ec849)'
+    azureContainerRegistry: '{"loginServer":"day11demoacr.azurecr.io", "id" : "/subscriptions/9e9c27ce-e0c8-4171-a368-ad16977ec849/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/day11demoacr"}'
+    dockerComposeFile: 'docker-compose.yml'
+    dockerComposeFileArgs: 'DOCKER_BUILD_SOURCE='
+    action: 'Build services'
+    additionalImageTags: '$(Build.BuildId)'
+
+- task: DockerCompose@0
+  displayName: 'Push services'
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Tech Tutorials With Piyush(9e9c27ce-e0c8-4171-a368-ad16977ec849)'
+    azureContainerRegistry: '{"loginServer":"day11demoacr.azurecr.io", "id" : "/subscriptions/9e9c27ce-e0c8-4171-a368-ad16977ec849/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/day11demoacr"}'
+    dockerComposeFile: 'docker-compose.yml'
+    dockerComposeFileArgs: 'DOCKER_BUILD_SOURCE='
+    action: 'Push services'
+    additionalImageTags: '$(Build.BuildId)'
+
+- task: DockerCompose@0
+  displayName: 'Lock services'
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Tech Tutorials With Piyush(9e9c27ce-e0c8-4171-a368-ad16977ec849)'
+    azureContainerRegistry: '{"loginServer":"day11demoacr.azurecr.io", "id" : "/subscriptions/9e9c27ce-e0c8-4171-a368-ad16977ec849/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/day11demoacr"}'
+    dockerComposeFile: 'docker-compose.yml'
+    dockerComposeFileArgs: 'DOCKER_BUILD_SOURCE='
+    action: 'Lock services'
+    outputDockerComposeFile: '$(Build.StagingDirectory)/docker-compose.yml'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files'
+  inputs:
+    Contents: |
+     **/mhc-aks.yaml
+     **/*.dacpac
+     
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    ArtifactName: deploy

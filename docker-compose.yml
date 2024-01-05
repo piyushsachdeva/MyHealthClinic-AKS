@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  myhealth.web:
+    image: myhealth.web
+    build:
+      context: ./src/MyHealth.Web
+      dockerfile: Dockerfile
