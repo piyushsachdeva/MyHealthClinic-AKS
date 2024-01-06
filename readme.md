@@ -8,6 +8,8 @@ They also innovate and offer multiple apps and services—including websites, mo
 **Note:** The code has been modified from the original version. The mobile (Xamarin and Cordova) projects have been removed and the web project has been upgraded to work in Visual Studio 2017.      
 You can find the old, original code on this [GitHub repo](https://github.com/Microsoft/HealthClinic.biz)
 
+![image](https://github.com/piyushsachdeva/MyHealthClinic-AKS/assets/40286378/3fd648b3-e0bc-44f3-ae29-8296e848a89c)
+
 ![](mhc-dashboard.png)
 
 
