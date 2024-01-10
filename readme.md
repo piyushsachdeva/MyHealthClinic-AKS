@@ -5,7 +5,10 @@ My Health Clinic, a sample application built for demo and training purposes, is 
 HealthClinic.biz uses different Microsoft and multi-channel apps built with Visual Studio and Azure to grow their business and modernize their customer experience. 
 They also innovate and offer multiple apps and services—including websites, mobile apps, and wearable apps—to empower their patient’s well-being with easy access to manage their healthcare data and stay healthy.
 
-**Note:** The code has been modified from the original version. The mobile (Xamarin and Cordova) projects have been removed and the web project has been upgraded to work in Visual Studio 2017.      
+**Note:** 
+This repo was imported from the Azure Repos provided with this [Lab](https://github.com/Microsoft/azuredevopslabs/tree/master/labs/vstsextend/kubernetes/)
+
+The code has been modified from the original version. The mobile (Xamarin and Cordova) projects have been removed and the web project has been upgraded to work in Visual Studio 2017.      
 You can find the old, original code on this [GitHub repo](https://github.com/Microsoft/HealthClinic.biz)
 
 ![image](https://github.com/piyushsachdeva/MyHealthClinic-AKS/assets/40286378/3fd648b3-e0bc-44f3-ae29-8296e848a89c)
