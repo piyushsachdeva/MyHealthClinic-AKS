@@ -39,8 +39,8 @@ steps:
   displayName: 'Run services'
   inputs:
     containerregistrytype: 'Azure Container Registry'
-    azureSubscription: 'Tech Tutorials With Piyush(9e9c27ce-e0c8-4171-a368-ad16977ec849)'
-    azureContainerRegistry: '{"loginServer":"day11demoacr.azurecr.io", "id" : "/subscriptions/9e9c27ce-e0c8-4171-a368-ad16977ec849/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/day11demoacr"}'
+    azureSubscription: '<<service connection details>>'
+    azureContainerRegistry: '{"loginServer":"registryName.azurecr.io", "id" : "/subscriptions/xxxx/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/registryName"}'
     dockerComposeFile: 'docker-compose.ci.build.yml'
     action: 'Run services'
     detached: false
@@ -49,8 +49,8 @@ steps:
   displayName: 'Build services'
   inputs:
     containerregistrytype: 'Azure Container Registry'
-    azureSubscription: 'Tech Tutorials With Piyush(9e9c27ce-e0c8-4171-a368-ad16977ec849)'
-    azureContainerRegistry: '{"loginServer":"day11demoacr.azurecr.io", "id" : "/subscriptions/9e9c27ce-e0c8-4171-a368-ad16977ec849/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/day11demoacr"}'
+    azureSubscription: '<<service connection details>>'
+    azureContainerRegistry: '{"loginServer":"registryName.azurecr.io", "id" : "/subscriptions/xxxx/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/registryName"}'
     dockerComposeFile: 'docker-compose.yml'
     dockerComposeFileArgs: 'DOCKER_BUILD_SOURCE='
     action: 'Build services'
@@ -60,8 +60,8 @@ steps:
   displayName: 'Push services'
   inputs:
     containerregistrytype: 'Azure Container Registry'
-    azureSubscription: 'Tech Tutorials With Piyush(9e9c27ce-e0c8-4171-a368-ad16977ec849)'
-    azureContainerRegistry: '{"loginServer":"day11demoacr.azurecr.io", "id" : "/subscriptions/9e9c27ce-e0c8-4171-a368-ad16977ec849/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/day11demoacr"}'
+    azureSubscription: '<<service connection details>>'
+    azureContainerRegistry: '{"loginServer":"registryName.azurecr.io", "id" : "/subscriptions/xxxx/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/registryName"}'
     dockerComposeFile: 'docker-compose.yml'
     dockerComposeFileArgs: 'DOCKER_BUILD_SOURCE='
     action: 'Push services'
@@ -71,8 +71,8 @@ steps:
   displayName: 'Lock services'
   inputs:
     containerregistrytype: 'Azure Container Registry'
-    azureSubscription: 'Tech Tutorials With Piyush(9e9c27ce-e0c8-4171-a368-ad16977ec849)'
-    azureContainerRegistry: '{"loginServer":"day11demoacr.azurecr.io", "id" : "/subscriptions/9e9c27ce-e0c8-4171-a368-ad16977ec849/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/day11demoacr"}'
+    azureSubscription: '<<service connection details>>'
+    azureContainerRegistry: '{"loginServer":"registryName.azurecr.io", "id" : "/subscriptions/xxxx/resourceGroups/day11-demo-rg/providers/Microsoft.ContainerRegistry/registries/registryName"}'
     dockerComposeFile: 'docker-compose.yml'
     dockerComposeFileArgs: 'DOCKER_BUILD_SOURCE='
     action: 'Lock services'
